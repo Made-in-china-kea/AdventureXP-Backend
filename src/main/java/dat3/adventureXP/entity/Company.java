@@ -21,5 +21,7 @@ public class Company {
 
     private String contactEmail;
 
+    private Integer cvr;
+
     // Getters and setters are omitted for brevity
 }
