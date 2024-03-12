@@ -21,5 +21,4 @@ public class Guest {
 
     private String email;
 
-    // Getters and setters are omitted for brevity
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +35,10 @@ public class Reservation {
     @Column(nullable = false)
     private Integer numberOfParticipants;
 
-    @ManyToMany(mappedBy = "reservations")
+    @OneToMany(mappedBy = "reservations")
     private Set<Activity> activities = new HashSet<>();
 
-    // Getters, setters, and methods for adding/removing activities are omitted for brevity
+    private LocalDateTime created;
+    private LocalDateTime edited;
+
 }

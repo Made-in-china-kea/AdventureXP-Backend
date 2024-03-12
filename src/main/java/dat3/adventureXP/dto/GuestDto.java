@@ -1,4 +1,5 @@
 package dat3.adventureXP.dto;
+import dat3.adventureXP.entity.Guest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,10 +13,10 @@ public class GuestDto {
      private String phoneNumber;
      private String email;
 
-     public GuestDto(Long id, String name, String phoneNumber, String email) {
-          this.id = id;
-          this.name = name;
-          this.phoneNumber = phoneNumber;
-          this.email = email;
+     public GuestDto(Guest g) {
+         this.id = g.getId();
+         this.name = g.getName();
+         this.phoneNumber = g.getPhoneNumber();
+         this.email = g.getEmail();
      }
 }

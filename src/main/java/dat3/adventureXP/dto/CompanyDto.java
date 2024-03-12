@@ -1,4 +1,5 @@
 package dat3.adventureXP.dto;
+import dat3.adventureXP.entity.Company;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,11 @@ public class CompanyDto {
      private String contactEmail;
      private Integer cvr;
 
-     public CompanyDto(Long id, String name, String contactName, String contactEmail, Integer cvr) {
-          this.id = id;
-          this.name = name;
-          this.contactName = contactName;
-          this.contactEmail = contactEmail;
-          this.cvr = cvr;
+     public CompanyDto(Company c) {
+         this.id = c.getId();
+         this.name = c.getName();
+         this.contactName = c.getContactName();
+         this.contactEmail = c.getContactEmail();
+         this.cvr = c.getCvr();
      }
 }

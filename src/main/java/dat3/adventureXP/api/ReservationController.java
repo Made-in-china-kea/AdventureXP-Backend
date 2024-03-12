@@ -1,28 +1,48 @@
 package dat3.adventureXP.api;
 
-import dat3.adventureXP.repository.ReservationRepository;
+import dat3.adventureXP.dto.ReservationDto;
+import dat3.adventureXP.service.ReservationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/reservations")  // Adjusted base path
 public class ReservationController {
 
-    private final ReservationRepository reservationRepository;
+    private final ReservationService reservationService;
 
-    public ReservationController(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
     }
 
-    // Similar CRUD operations as in ActivityController (adjust for Reservation entity)
+    // Create (POST)
+    @PostMapping
+    public ReservationDto createReservation(@RequestBody ReservationDto request){
+        return reservationService.createReservation(request);
+    }
+    // Read All (GET)
+    @GetMapping
+    public List<ReservationDto> getAllReservations() {
+        return reservationService.getAllReservations();
+    }
 
-    // Additional method for adding activities to a reservation (assuming a method in Reservation to add Activity)
-    @PostMapping("/{reservationId}/activities/{activityId}")
-    public ResponseEntity<?> addActivityToReservation(@PathVariable Long reservationId, @PathVariable Long activityId) {
-        // Implement logic to add activity to the reservation
-        return ResponseEntity.ok().build();
+    // Read by ID (GET)
+    @GetMapping("/{id}")
+    public ReservationDto getReservationById(@PathVariable Long id) {
+        return reservationService.getReservationById(id);
+    }
+
+    // Update (PUT)
+    @PutMapping("/{id}")
+    public ReservationDto updateReservation(@PathVariable Long id, @RequestBody ReservationDto request) {
+        return reservationService.editReservation(id, request);
+    }
+
+    // Delete (DELETE)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
+        return reservationService.deleteReservation(id);
     }
 }

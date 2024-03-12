@@ -1,20 +1,17 @@
 package dat3.adventureXP.api;
 
 import dat3.adventureXP.dto.ActivityDto;
-import dat3.adventureXP.entity.Activity;
-import dat3.adventureXP.repository.ActivityRepository;
 import dat3.adventureXP.service.ActivityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/activities")
 public class ActivityController {
 
-    private ActivityService activityService;
+    private final ActivityService activityService;
 
     public ActivityController(ActivityService activityService) {
         this.activityService = activityService;

@@ -23,5 +23,4 @@ public class Company {
 
     private Integer cvr;
 
-    // Getters and setters are omitted for brevity
 }
