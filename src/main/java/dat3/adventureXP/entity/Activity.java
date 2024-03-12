@@ -19,5 +19,7 @@ public class Activity {
 
     private Integer ageLimit;
 
+    private Integer timeSlot;
+
     // Getters and setters are omitted for brevity
 }
