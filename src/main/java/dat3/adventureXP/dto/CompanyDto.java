@@ -6,11 +6,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class CompanyDto {
-     Long id;
-     String name;
-     String contactName;
-     String contactEmail;
+     private Long id;
+     private String name;
+     private String contactName;
+     private String contactEmail;
+
+     public CompanyDto(Long id, String name, String contactName, String contactEmail) {
+          this.id = id;
+          this.name = name;
+          this.contactName = contactName;
+          this.contactEmail = contactEmail;
+     }
 }

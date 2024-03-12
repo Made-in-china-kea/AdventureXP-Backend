@@ -7,10 +7,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class ActivityDto {
-     Long id;
-     String name;
-     Integer ageLimit;
+
+     private Long id;
+     private String name;
+     private Integer ageLimit;
+     private Integer timeSlot;
+
+     public ActivityDto(Long id, String name, Integer ageLimit, Integer timeSlot) {
+          this.id = id;
+          this.name = name;
+          this.ageLimit = ageLimit;
+          this.timeSlot = timeSlot;
+     }
 }

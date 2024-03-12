@@ -1,16 +1,19 @@
 package dat3.adventureXP.dto;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class EquipmentDto {
-    Long id;
-     String name;
-     Long activityId;
+    private Long id;
+    private String name;
+    private Long activityId;  // Use activity ID instead of the Activity object
+
+    public EquipmentDto(Long id, String name, Long activityId) {
+        this.id = id;
+        this.name = name;
+        this.activityId = activityId;
+    }
 }
