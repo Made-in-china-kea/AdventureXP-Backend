@@ -12,11 +12,13 @@ public class CompanyDto {
      private String name;
      private String contactName;
      private String contactEmail;
+     private Integer cvr;
 
-     public CompanyDto(Long id, String name, String contactName, String contactEmail) {
+     public CompanyDto(Long id, String name, String contactName, String contactEmail, Integer cvr) {
           this.id = id;
           this.name = name;
           this.contactName = contactName;
           this.contactEmail = contactEmail;
+          this.cvr = cvr;
      }
 }
