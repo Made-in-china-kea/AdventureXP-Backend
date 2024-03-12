@@ -1,5 +1,7 @@
 package dat3.adventureXP.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import dat3.adventureXP.entity.Activity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivityDto {
 
      private Long id;
@@ -15,10 +18,10 @@ public class ActivityDto {
      private Integer ageLimit;
      private Integer timeSlot;
 
-     public ActivityDto(Long id, String name, Integer ageLimit, Integer timeSlot) {
-          this.id = id;
-          this.name = name;
-          this.ageLimit = ageLimit;
-          this.timeSlot = timeSlot;
+     public ActivityDto(Activity activity) {
+            this.id = activity.getId();
+            this.name = activity.getName();
+            this.ageLimit = activity.getAgeLimit();
+            this.timeSlot = activity.getTimeSlot();
      }
 }
