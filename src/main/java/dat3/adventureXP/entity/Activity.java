@@ -20,6 +20,8 @@ public class Activity {
 
     @Column(nullable = false)
     private String name;
+    
+    private Integer price;
 
     private Integer ageLimit;
 
