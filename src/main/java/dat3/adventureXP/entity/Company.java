@@ -8,11 +8,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Companies")
-public class Company extends Guest {
+public class Company{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String companyName;
 
     private String contactName;
 
@@ -21,4 +24,5 @@ public class Company extends Guest {
 
     @Column(nullable = false, unique = true)
     private Integer cvr;
+
 }

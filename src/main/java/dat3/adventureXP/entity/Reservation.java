@@ -20,8 +20,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     private Guest guest;
+
+    @ManyToOne
+    private Company company;
 
     @Column(nullable = false)
     private Date reservationDate;
@@ -37,4 +40,6 @@ public class Reservation {
 
    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
     private Set<ReservationActivity> activities = new HashSet<>();
+
+
 }

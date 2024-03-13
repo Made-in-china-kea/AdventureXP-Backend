@@ -15,13 +15,13 @@ public class Guest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private String phoneNumber;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToOne
-    private Company company;
 }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface GuestRepository extends JpaRepository<Guest, Long> {
-    public Optional<Guest> findByName(String name);
+    public Optional<Guest> findByFirstName(String firstName);
 }

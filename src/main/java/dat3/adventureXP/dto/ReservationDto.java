@@ -3,6 +3,7 @@ package dat3.adventureXP.dto;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 import dat3.adventureXP.entity.Reservation;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public class ReservationDto {
      private Long id;
      private GuestDto guest;
+     private CompanyDto company;
      private Date reservationDate;
      private Time reservationTime;
      private Integer numberOfParticipants;
@@ -32,11 +34,19 @@ public class ReservationDto {
          this.numberOfParticipants = r.getNumberOfParticipants();
          this.created = r.getCreated();
          this.edited = r.getEdited();
-         this.guest = new GuestDto(r.getGuest());
          this.activities = r.getActivities();
+         if (r.getGuest() != null) {
+             this.guest = new GuestDto(r.getGuest());
+         } else {
+             this.company = new CompanyDto(r.getCompany());
+         }
      }
 
     public Long getGuestId() {
          return guest.getId();
+    }
+
+    public Long getCompanyId() {
+         return company.getId();
     }
 }
