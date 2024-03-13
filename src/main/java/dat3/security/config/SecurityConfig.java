@@ -62,8 +62,11 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/activities")).hasAuthority("ADMIN")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/guests")).permitAll()
 
+=======
+>>>>>>> a1efc7f9e7213f79a665f1c47788dc6d823b9a51
 =======
 >>>>>>> a1efc7f9e7213f79a665f1c47788dc6d823b9a51
 
