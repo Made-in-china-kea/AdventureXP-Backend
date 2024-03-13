@@ -22,6 +22,6 @@ public class Guest {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToOne
     private Company company;
 }

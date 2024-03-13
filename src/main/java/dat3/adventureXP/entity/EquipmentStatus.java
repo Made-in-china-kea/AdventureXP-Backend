@@ -25,8 +25,6 @@ public class EquipmentStatus {
     @Column(nullable = false)
     private Date date;
 
-    // Getters and setters are omitted for brevity
-
     public enum EquipmentStatusType {
         AVAILABLE,
         IN_USE,
