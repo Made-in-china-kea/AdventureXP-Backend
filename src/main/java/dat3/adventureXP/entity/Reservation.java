@@ -20,11 +20,10 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Guest guest;
-
-    @ManyToOne
-    private Company company;
+    // One-to-one relationship with either Guest or Company
+    @JoinColumn(name = "customer_id", nullable = false) // Foreign key
+    @OneToOne(cascade = CascadeType.ALL) // Optional: cascade operations
+    private Customer customer;
 
     @Column(nullable = false)
     private Date reservationDate;
@@ -34,9 +33,6 @@ public class Reservation {
 
     @Column(nullable = false)
     private Integer numberOfParticipants;
-
-    @OneToMany(mappedBy = "reservations")
-    private Set<Activity> activities = new HashSet<>();
 
     private LocalDateTime created;
     private LocalDateTime edited;
