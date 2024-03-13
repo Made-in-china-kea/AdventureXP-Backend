@@ -20,5 +20,7 @@ public class ReservationActivity {
     @ManyToOne
     private Activity activity;
 
-    // Getters and setters are omitted for brevity
+    private Integer startTime;
+
+    private Integer endTime = startTime + activity.getTimeSlot();
 }

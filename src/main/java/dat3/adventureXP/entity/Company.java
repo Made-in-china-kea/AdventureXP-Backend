@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Companies")
-public class Company extends Customer {
+public class Company extends Guest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +19,6 @@ public class Company extends Customer {
     @Column(nullable = false, unique = true)
     private String contactEmail;
 
+    @Column(nullable = false, unique = true)
     private Integer cvr;
 }

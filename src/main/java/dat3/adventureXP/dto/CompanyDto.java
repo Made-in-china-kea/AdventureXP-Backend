@@ -10,14 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CompanyDto {
      private Long id;
-     private String name;
      private String contactName;
      private String contactEmail;
      private Integer cvr;
 
      public CompanyDto(Company c) {
          this.id = c.getId();
-         this.name = c.getName();
          this.contactName = c.getContactName();
          this.contactEmail = c.getContactEmail();
          this.cvr = c.getCvr();

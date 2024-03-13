@@ -66,16 +66,9 @@ public class ReservationService {
     }
 
     private void updateReservation(Reservation reservation, ReservationDto request) {
-        // set guest or company
-        if(request.getGuestId() != null){
-            Guest guest = guestRepository.findById(request.getGuestId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Guest not found"));
-            reservation.setGuest(guest);
-        } else {
-            Company company = companyRepository.findById(request.getCompanyId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
-            reservation.setCompany(company);
-        }
+        // set guest
+        Guest guest = guestRepository.findById(request.getGuestId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Guest not found"));
         reservation.setReservationDate(request.getReservationDate());
         reservation.setReservationTime(request.getReservationTime());
         reservation.setNumberOfParticipants(request.getNumberOfParticipants());

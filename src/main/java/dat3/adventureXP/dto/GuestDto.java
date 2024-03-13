@@ -12,11 +12,13 @@ public class GuestDto {
      private String name;
      private String phoneNumber;
      private String email;
+     private CompanyDto company;
 
      public GuestDto(Guest g) {
          this.id = g.getId();
          this.name = g.getName();
          this.phoneNumber = g.getPhoneNumber();
          this.email = g.getEmail();
+         this.company = new CompanyDto(g.getCompany());
      }
 }

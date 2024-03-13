@@ -22,5 +22,4 @@ public class Equipment {
     @ManyToOne
     private Activity activity;
 
-    // Getters and setters are omitted for brevity
 }

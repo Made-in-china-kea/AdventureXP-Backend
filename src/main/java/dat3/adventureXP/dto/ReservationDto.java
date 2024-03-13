@@ -17,7 +17,6 @@ import lombok.Setter;
 public class ReservationDto {
      private Long id;
      private GuestDto guest;  // Use GuestDto instead of Guest
-     private CompanyDto company;  // Use CompanyDto instead of Company
      private Date reservationDate;
      private Time reservationTime;
      private Integer numberOfParticipants;
@@ -33,18 +32,9 @@ public class ReservationDto {
          this.numberOfParticipants = r.getNumberOfParticipants();
          this.created = r.getCreated();
          this.edited = r.getEdited();
-         if(r.getGuest() != null){
-            this.guest = new GuestDto(r.getGuest());
-         } else {
-            this.company = new CompanyDto(r.getCompany());
-         }
      }
 
     public Long getGuestId() {
          return guest.getId();
-    }
-
-    public Long getCompanyId() {
-         return company.getId();
     }
 }
