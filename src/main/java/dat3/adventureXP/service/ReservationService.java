@@ -4,10 +4,7 @@ import dat3.adventureXP.dto.ReservationActivityDto;
 import dat3.adventureXP.dto.CompanyDto;
 import dat3.adventureXP.dto.GuestDto;
 import dat3.adventureXP.dto.ReservationDto;
-import dat3.adventureXP.entity.Company;
-import dat3.adventureXP.entity.Guest;
-import dat3.adventureXP.entity.Reservation;
-import dat3.adventureXP.entity.ReservationActivity;
+import dat3.adventureXP.entity.*;
 import dat3.adventureXP.repository.CompanyRepository;
 import dat3.adventureXP.repository.GuestRepository;
 import dat3.adventureXP.repository.ReservationActivityRepository;
@@ -20,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,6 +71,18 @@ public class ReservationService {
 
         // Create new reservation
         Reservation newReservation = new Reservation();
+
+        // create new reservation activity records with the new reservation id and add to the new reservation
+        for (ReservationActivity activity : request.getReservedActivities()) {
+            ReservationActivity newActivity = new ReservationActivity();
+            newActivity.setReservation(newReservation);
+            newActivity.setActivity(activity.getActivity());
+            ReservationActivity newA = reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
+
+            // add the new activity to the new reservation
+            newReservation.addActivity(newA);
+        }
+
         // Set reservation details
         updateReservation(newReservation, request);
         return new ReservationDto(newReservation);
@@ -101,18 +109,21 @@ public class ReservationService {
         Reservation editedReservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
 
+        // update the reservation activity records
+        for (ReservationActivity activity : request.getReservedActivities()) {
+            // find the activity to edit in the repository
+            ReservationActivity activityToEdit = reservationActivityRepository.findById(activity.getReservation().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
+            // update the activity
+            activityToEdit.setActivity(activity.getActivity());
+            // add the activity to the reservation
+            editedReservation.addActivity(activityToEdit);
+        }
+
         // Update reservation details (assuming relevant fields in request DTO)
         updateReservation(editedReservation, request);
         // Save updated reservation
        reservationRepository.save(editedReservation);
-
-       // delete all activities for the reservation and add new ones
-        reservationActivityRepository.deleteByReservationId(id);
-
-        for (ReservationActivity activity : request.getReservedActivities()) {
-            ReservationActivity newActivity = new ReservationActivity();
-            reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
-        }
 
         // Convert to and return ReservationDto
         return ResponseEntity.ok(new ReservationDto(editedReservation));
@@ -128,6 +139,7 @@ public class ReservationService {
         reservation.setCreated(request.getCreated());
         reservation.setEdited(request.getEdited());
         reservation.setCancelled(request.isCancelled());
+        reservation.setReservedActivities(request.getReservedActivities());
     }
 
     public ResponseEntity<Reservation> deleteReservation(Integer id) {
@@ -137,8 +149,4 @@ public class ReservationService {
         reservationRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 }

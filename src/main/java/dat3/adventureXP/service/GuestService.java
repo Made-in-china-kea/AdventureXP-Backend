@@ -1,7 +1,6 @@
 package dat3.adventureXP.service;
 
 import dat3.adventureXP.dto.GuestDto;
-import dat3.adventureXP.dto.ReservationDto;
 import dat3.adventureXP.entity.Guest;
 import dat3.adventureXP.repository.GuestRepository;
 import org.springframework.stereotype.Service;

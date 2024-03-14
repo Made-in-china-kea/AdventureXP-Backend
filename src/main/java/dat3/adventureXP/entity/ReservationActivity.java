@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "Reservation_Activities")
+@IdClass(ReservationActivityId.class)
 public class ReservationActivity {
 
     @Id
@@ -28,11 +29,4 @@ public class ReservationActivity {
 
     private LocalDateTime created;
 
-    public ReservationActivity(ReservationActivity reservationActivity) {
-        this.reservation = reservationActivity.getReservation();
-        this.activity = reservationActivity.getActivity();
-        this.startTime = reservationActivity.getStartTime();
-        this.endTime = reservationActivity.getEndTime();
-        this.created = reservationActivity.getCreated();
-    }
 }

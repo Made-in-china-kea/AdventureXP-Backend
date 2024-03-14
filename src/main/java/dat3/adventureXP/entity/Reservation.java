@@ -44,9 +44,6 @@ public class Reservation {
 
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Reservation_Activities",
-            joinColumns = @JoinColumn(name = "reservation_id"),
-            inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<ReservationActivity> reservedActivities = new HashSet<>();
 
 

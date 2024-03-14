@@ -22,7 +22,8 @@ public class CompanyService {
     private void updateCompany(Company company, CompanyDto companyDto) {
         company.setId(companyDto.getId());
         company.setCompanyName(companyDto.getCompanyName());
-        company.setContactName(companyDto.getContactName());
+        company.setContactFirstName(companyDto.getContactFirstName());
+        company.setContactLastName(companyDto.getContactLastName());
         company.setContactEmail(companyDto.getContactEmail());
         company.setCvr(companyDto.getCvr());
     }

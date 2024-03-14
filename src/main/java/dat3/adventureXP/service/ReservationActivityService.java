@@ -12,7 +12,7 @@ public class ReservationActivityService {
     this.reservationActivityRepository = reservationActivityRepository;
     }
 
-    // add activity reservation to ReservationActivityRepository
+    // add activity reservation to ReservationActivityRepository and return the new ReservationActivity record
     public ReservationActivity addActivityReservation(ReservationActivityDto request) {
         ReservationActivity newReservationActivity = new ReservationActivity();
         updateReservationActivity(newReservationActivity, request);
@@ -20,6 +20,8 @@ public class ReservationActivityService {
         return newReservationActivity;
         }
 
+
+        // updates the object with the new values from the request
     private void updateReservationActivity(ReservationActivity reservationActivity, ReservationActivityDto request) {
         reservationActivity.setReservation(request.getReservation());
         reservationActivity.setActivity(request.getActivity());
