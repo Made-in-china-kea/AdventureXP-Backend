@@ -27,4 +27,12 @@ public class ReservationActivity {
     private Integer endTime = startTime + activity.getTimeSlot();
 
     private LocalDateTime created;
+
+    public ReservationActivity(ReservationActivity reservationActivity) {
+        this.reservation = reservationActivity.getReservation();
+        this.activity = reservationActivity.getActivity();
+        this.startTime = reservationActivity.getStartTime();
+        this.endTime = reservationActivity.getEndTime();
+        this.created = reservationActivity.getCreated();
+    }
 }

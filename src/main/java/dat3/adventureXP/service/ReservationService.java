@@ -1,5 +1,6 @@
 package dat3.adventureXP.service;
 
+import dat3.adventureXP.dto.ReservationActivityDto;
 import dat3.adventureXP.dto.CompanyDto;
 import dat3.adventureXP.dto.GuestDto;
 import dat3.adventureXP.dto.ReservationDto;
@@ -9,6 +10,7 @@ import dat3.adventureXP.entity.Reservation;
 import dat3.adventureXP.entity.ReservationActivity;
 import dat3.adventureXP.repository.CompanyRepository;
 import dat3.adventureXP.repository.GuestRepository;
+import dat3.adventureXP.repository.ReservationActivityRepository;
 import dat3.adventureXP.repository.ReservationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +29,23 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final GuestRepository guestRepository;
     private final CompanyRepository companyRepository;
+    private final ReservationActivityRepository reservationActivityRepository;
 
     private final GuestService guestService;
 
     private final CompanyService companyService;
 
-    public ReservationService(ReservationRepository reservationRepository, GuestRepository guestRepository, CompanyRepository companyRepository) {
+    private final ReservationActivityService reservationActivityService;
+
+    public ReservationService(ReservationRepository reservationRepository,
+                              GuestRepository guestRepository, CompanyRepository companyRepository, ReservationActivityRepository reservationActivityRepository) {
         this.reservationRepository = reservationRepository;
         this.guestRepository = guestRepository;
         this.companyRepository = companyRepository;
+        this.reservationActivityRepository = reservationActivityRepository;
         this.guestService = new GuestService(guestRepository);
         this.companyService = new CompanyService(companyRepository);
+        this.reservationActivityService = new ReservationActivityService(reservationActivityRepository);
     }
 
     @Transactional
@@ -79,14 +87,14 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public ReservationDto getReservationById(Long id) {
+    public ReservationDto getReservationById(Integer id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
         return new ReservationDto(reservation);
     }
 
     @Transactional
-    public ResponseEntity<ReservationDto> editReservation(Long id, ReservationDto request) {
+    public ResponseEntity<ReservationDto> editReservation(Integer id, ReservationDto request) {
         if (!Objects.equals(request.getId(), id)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing reservation");
         }
@@ -97,6 +105,14 @@ public class ReservationService {
         updateReservation(editedReservation, request);
         // Save updated reservation
        reservationRepository.save(editedReservation);
+
+       // delete all activities for the reservation and add new ones
+        reservationActivityRepository.deleteByReservationId(id);
+
+        for (ReservationActivity activity : request.getReservedActivities()) {
+            ReservationActivity newActivity = new ReservationActivity();
+            reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
+        }
 
         // Convert to and return ReservationDto
         return ResponseEntity.ok(new ReservationDto(editedReservation));
@@ -109,26 +125,20 @@ public class ReservationService {
         reservation.setReservationDate(request.getReservationDate());
         reservation.setReservationTime(request.getReservationTime());
         reservation.setNumberOfParticipants(request.getNumberOfParticipants());
-        reservation.setActivities(request.getActivities());  // Set activities
         reservation.setCreated(request.getCreated());
         reservation.setEdited(request.getEdited());
+        reservation.setCancelled(request.isCancelled());
     }
 
-    public ResponseEntity<Reservation> deleteReservation(Long id) {
+    public ResponseEntity<Reservation> deleteReservation(Integer id) {
         if (!reservationRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found");
         }
         reservationRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    public Set<ReservationActivity> getReservationActivities(Long reservationId) {
-        // Find the reservation by id
-        Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
 
-        // Get the activities associated with the reservation
-        Set<ReservationActivity> activities = reservation.getActivities();
 
-        return activities;
-    }
+
+
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.adventureXP.entity.Reservation;
 import dat3.adventureXP.entity.ReservationActivity;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationDto {
      private Integer id;
      private GuestDto guest;
@@ -24,7 +26,8 @@ public class ReservationDto {
      private Integer numberOfParticipants;
      private LocalDateTime created;
      private LocalDateTime edited;
-     private Set<ReservationActivity> activities;
+     private Set<ReservationActivity> reservedActivities;
+     private boolean isCancelled;
 
 
      public ReservationDto(Reservation r ) {
@@ -34,19 +37,12 @@ public class ReservationDto {
          this.numberOfParticipants = r.getNumberOfParticipants();
          this.created = r.getCreated();
          this.edited = r.getEdited();
-         this.activities = r.getActivities();
+         this.reservedActivities = r.getReservedActivities();
+         this.isCancelled = r.isCancelled();
          if (r.getGuest() != null) {
              this.guest = new GuestDto(r.getGuest());
          } else {
              this.company = new CompanyDto(r.getCompany());
          }
      }
-
-    public Integer getGuestId() {
-         return guest.getId();
-    }
-
-    public Integer getCompanyId() {
-         return company.getId();
-    }
 }

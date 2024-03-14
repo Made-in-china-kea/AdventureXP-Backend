@@ -21,6 +21,4 @@ public class GuestDto {
          this.phoneNumber = g.getPhoneNumber();
          this.email = g.getEmail();
      }
-
-
 }

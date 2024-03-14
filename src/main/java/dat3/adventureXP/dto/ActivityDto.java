@@ -19,11 +19,11 @@ public class ActivityDto {
      private Integer ageLimit;
      private Integer timeSlot;
 
-     public ActivityDto(Activity activity) {
-            this.id = activity.getId();
-            this.name = activity.getName();
-            this.ageLimit = activity.getAgeLimit();
-            this.timeSlot = activity.getTimeSlot();
-            this.price = activity.getPrice();
+     public ActivityDto(Activity a) {
+        this.id = a.getId();
+        this.name = a.getName();
+        this.ageLimit = a.getAgeLimit();
+        this.timeSlot = a.getTimeSlot();
+        this.price = a.getPrice();
      }
 }

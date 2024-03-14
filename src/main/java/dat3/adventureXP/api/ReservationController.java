@@ -31,19 +31,19 @@ public class ReservationController {
 
     // Read by ID (GET)
     @GetMapping("/{id}")
-    public ReservationDto getReservationById(@PathVariable Long id) {
+    public ReservationDto getReservationById(@PathVariable Integer id) {
         return reservationService.getReservationById(id);
     }
 
     // Update (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto request) {
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Integer id, @RequestBody ReservationDto request) {
         return reservationService.editReservation(id, request);
     }
 
     // Delete (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Reservation> deleteReservation(@PathVariable Long id) {
+    public ResponseEntity<Reservation> deleteReservation(@PathVariable Integer id) {
         return reservationService.deleteReservation(id);
     }
 }

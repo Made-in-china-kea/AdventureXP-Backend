@@ -22,7 +22,9 @@ public class Company{
     @Column(nullable = false)
     private String companyName;
 
-    private String contactName;
+    private String contactFirstName;
+
+    private String contactLastName;
 
     @Column(nullable = false, unique = true)
     private String contactEmail;
@@ -34,7 +36,8 @@ public class Company{
 
     public Company(CompanyDto company) {
         this.companyName = company.getCompanyName();
-        this.contactName = company.getContactName();
+        this.contactFirstName = company.getContactFirstName();
+        this.contactLastName = company.getContactLastName();
         this.contactEmail = company.getContactEmail();
         this.cvr = company.getCvr();
         this.created = LocalDateTime.now();

@@ -47,21 +47,28 @@ public class Reservation {
     @JoinTable(name = "Reservation_Activities",
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
-    private Set<ReservationActivity> activities = new HashSet<>();
+    private Set<ReservationActivity> reservedActivities = new HashSet<>();
 
 
-   public Reservation(ReservationDto reservationDto) {
-       this.id = reservationDto.getId();
-       this.reservationDate = reservationDto.getReservationDate();
-       this.reservationTime = reservationDto.getReservationTime();
-       this.numberOfParticipants = reservationDto.getNumberOfParticipants();
-       this.created = reservationDto.getCreated();
-       this.edited = reservationDto.getEdited();
-       if (reservationDto.getGuest() != null) {
-           this.guest = new Guest(reservationDto.getGuest());
+   public Reservation(ReservationDto r) {
+       this.id = r.getId();
+       this.reservationDate = r.getReservationDate();
+       this.reservationTime = r.getReservationTime();
+       this.numberOfParticipants = r.getNumberOfParticipants();
+       this.created = r.getCreated();
+       this.edited = r.getEdited();
+       this.isCancelled = r.isCancelled();
+       if (r.getGuest() != null) {
+           this.guest = new Guest(r.getGuest());
        } else {
-           this.company = new Company(reservationDto.getCompany());
+           this.company = new Company(r.getCompany());
        }
+
+       this.reservedActivities = r.getReservedActivities();
    }
+
+    public void addActivity(ReservationActivity activity) {
+         this.reservedActivities.add(activity);
+    }
 
 }

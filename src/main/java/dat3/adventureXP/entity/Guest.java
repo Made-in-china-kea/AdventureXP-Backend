@@ -2,6 +2,7 @@ package dat3.adventureXP.entity;
 
 import dat3.adventureXP.dto.GuestDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
