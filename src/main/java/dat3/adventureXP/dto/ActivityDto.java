@@ -13,8 +13,9 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivityDto {
 
-     private Long id;
+     private Integer id;
      private String name;
+     private Integer price;
      private Integer ageLimit;
      private Integer timeSlot;
 
@@ -23,5 +24,6 @@ public class ActivityDto {
             this.name = activity.getName();
             this.ageLimit = activity.getAgeLimit();
             this.timeSlot = activity.getTimeSlot();
+            this.price = activity.getPrice();
      }
 }

@@ -1,6 +1,7 @@
 package dat3.adventureXP.api;
 
 import dat3.adventureXP.dto.ReservationDto;
+import dat3.adventureXP.entity.Reservation;
 import dat3.adventureXP.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +37,13 @@ public class ReservationController {
 
     // Update (PUT)
     @PutMapping("/{id}")
-    public ReservationDto updateReservation(@PathVariable Long id, @RequestBody ReservationDto request) {
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto request) {
         return reservationService.editReservation(id, request);
     }
 
     // Delete (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
+    public ResponseEntity<Reservation> deleteReservation(@PathVariable Long id) {
         return reservationService.deleteReservation(id);
     }
 }

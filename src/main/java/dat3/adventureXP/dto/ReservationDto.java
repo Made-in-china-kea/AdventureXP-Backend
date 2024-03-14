@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ReservationDto {
-     private Long id;
+     private Integer id;
      private GuestDto guest;
      private CompanyDto company;
      private Date reservationDate;
@@ -42,11 +42,11 @@ public class ReservationDto {
          }
      }
 
-    public Long getGuestId() {
+    public Integer getGuestId() {
          return guest.getId();
     }
 
-    public Long getCompanyId() {
+    public Integer getCompanyId() {
          return company.getId();
     }
 }

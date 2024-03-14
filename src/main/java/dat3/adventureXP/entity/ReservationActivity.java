@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,4 +25,6 @@ public class ReservationActivity {
     private Integer startTime;
 
     private Integer endTime = startTime + activity.getTimeSlot();
+
+    private LocalDateTime created;
 }
