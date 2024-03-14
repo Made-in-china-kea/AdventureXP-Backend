@@ -43,8 +43,8 @@ public class Reservation {
     private boolean isCancelled;
 
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
-    @JoinTable(name = "reservation_activities",
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Reservation_Activities",
             joinColumns = @JoinColumn(name = "reservation_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<ReservationActivity> activities = new HashSet<>();
