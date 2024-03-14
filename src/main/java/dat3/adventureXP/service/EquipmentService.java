@@ -18,4 +18,6 @@ public class EquipmentService {
     // Can implement methods for:
     // - Checking equipment availability for a specific reservation
     // - Updating equipment status (e.g., marking equipment as "In Use" for a reservation)
+
+
 }

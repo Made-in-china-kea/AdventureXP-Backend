@@ -26,7 +26,7 @@ public class ActivityService {
         return activityResponses;
     }
 
-    public ActivityDto getActivityById(Long id) {
+    public ActivityDto getActivityById(Integer id) {
         Activity activity = activityRepository.findById(id).orElseThrow( () -> new
                 ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
         return new ActivityDto(activity);
@@ -45,7 +45,7 @@ public class ActivityService {
         activity.setTimeSlot(activityDto.getTimeSlot());
     }
 
-    public ActivityDto editActivity(Long id, ActivityDto request) {
+    public ActivityDto editActivity(Integer id, ActivityDto request) {
         if (request.getId() != id) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing recipe");
         }
@@ -56,7 +56,7 @@ public class ActivityService {
         return new ActivityDto(activity);
     }
 
-    public ResponseEntity<?> deleteActivity(Long id) {
+    public ResponseEntity<?> deleteActivity(Integer id) {
         Activity activity = activityRepository.findById(id).orElseThrow(() -> new
                 ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
         activityRepository.delete(activity);

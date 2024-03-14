@@ -15,4 +15,9 @@ public class CompanyController {
     }
 
     // Similar CRUD operations as in ActivityController (adjust for Company entity)
+
+
+
+
+
 }

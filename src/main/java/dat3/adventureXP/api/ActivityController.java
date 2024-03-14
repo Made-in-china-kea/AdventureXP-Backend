@@ -31,19 +31,19 @@ public class ActivityController {
 
     // Read by ID (GET)
     @GetMapping("/{id}")
-    public ActivityDto getActivityById(@PathVariable Long id) {
+    public ActivityDto getActivityById(@PathVariable Integer id) {
         return activityService.getActivityById(id);
     }
 
     // Update (PUT)
     @PutMapping("/{id}")
-    public ActivityDto editActivity(@PathVariable Long id, @RequestBody ActivityDto request) {
+    public ActivityDto editActivity(@PathVariable Integer id, @RequestBody ActivityDto request) {
         return activityService.editActivity(id, request);
     }
 
     // Delete (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteActivity(@PathVariable Long id) {
+    public ResponseEntity<?> deleteActivity(@PathVariable Integer id) {
         return activityService.deleteActivity(id);
     }
 }
