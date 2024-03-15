@@ -43,7 +43,7 @@ public class Reservation {
     private boolean isCancelled;
 
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "reservationId", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<ReservationActivity> reservedActivities = new HashSet<>();
 
 

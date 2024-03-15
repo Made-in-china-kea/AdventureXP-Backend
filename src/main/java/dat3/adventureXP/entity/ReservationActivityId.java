@@ -10,9 +10,7 @@ import java.io.Serializable;
 @Setter
 public class ReservationActivityId implements Serializable {
 
-    @ManyToOne
-    private Reservation reservation;
-
+    private Integer reservationId;
     @ManyToOne
     private Activity activity;
 }

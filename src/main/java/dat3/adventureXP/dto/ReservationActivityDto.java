@@ -14,21 +14,19 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationActivityDto {
 
-    private Reservation reservation;
+    private Integer reservationId;
     private Activity activity;
     private Integer startTime;
     private Integer reservedSlots;
     private Integer endTime;
-
     private LocalDateTime created;
 
     public ReservationActivityDto(ReservationActivity r) {
         this.activity = r.getActivity();
-        this.reservation = r.getReservation();
+        this.reservationId = r.getReservationId();
         this.startTime = r.getStartTime();
         this.reservedSlots = r.getReservedSlots();
         this.endTime = r.getEndTime();
         this.created = r.getCreated();
     }
-
 }

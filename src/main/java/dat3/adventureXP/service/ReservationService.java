@@ -75,7 +75,7 @@ public class ReservationService {
         // create new reservation activity records with the new reservation id
         for (ReservationActivity activity : request.getReservedActivities()) {
             ReservationActivity newActivity = new ReservationActivity();
-            newActivity.setReservation(newReservation);
+            newActivity.setReservationId(newReservation.getId());
             newActivity.setActivity(activity.getActivity());
             // add the new reservation activity to the repository
             ReservationActivity newA = reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
@@ -113,7 +113,7 @@ public class ReservationService {
         // update the reservation activity records
         for (ReservationActivity activity : request.getReservedActivities()) {
             // find the activity to edit in the repository
-            ReservationActivity activityToEdit = reservationActivityRepository.findById(activity.getReservation().getId())
+            ReservationActivity activityToEdit = reservationActivityRepository.findById(activity.getReservationId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
             // update the activity
             activityToEdit.setActivity(activity.getActivity());

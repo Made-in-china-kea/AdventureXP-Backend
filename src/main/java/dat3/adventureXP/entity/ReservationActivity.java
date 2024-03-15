@@ -16,19 +16,13 @@ import java.time.LocalDateTime;
 public class ReservationActivity {
 
     @Id
-    @ManyToOne
-    private Reservation reservation;
-
+    private Integer reservationId;  // Use primitive for primary key field
     @Id
     @ManyToOne
     private Activity activity;
-
     private Integer startTime;
-
     private Integer reservedSlots;
-
     private Integer endTime = startTime + (activity.getTimeSlot() * reservedSlots);
-
     private LocalDateTime created;
 
 }

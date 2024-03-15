@@ -23,7 +23,7 @@ public class ReservationActivityService {
 
         // updates the object with the new values from the request
     private void updateReservationActivity(ReservationActivity reservationActivity, ReservationActivityDto request) {
-        reservationActivity.setReservation(request.getReservation());
+        reservationActivity.setReservationId(request.getReservationId());
         reservationActivity.setActivity(request.getActivity());
         reservationActivity.setStartTime(request.getStartTime());
         reservationActivity.setReservedSlots(request.getReservedSlots());
