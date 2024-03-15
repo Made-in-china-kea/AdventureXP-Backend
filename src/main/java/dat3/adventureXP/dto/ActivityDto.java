@@ -17,7 +17,7 @@ public class ActivityDto {
      private String name;
      private Integer price;
      private Integer ageLimit;
-     private Integer timeSlot;
+     private Integer timeSlot; // minutes
 
      public ActivityDto(Activity a) {
         this.id = a.getId();

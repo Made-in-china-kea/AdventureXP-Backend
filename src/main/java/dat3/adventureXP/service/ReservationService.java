@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -123,6 +124,8 @@ public class ReservationService {
 
         // Update reservation details (assuming relevant fields in request DTO)
         updateReservation(editedReservation, request);
+        // set the edited time
+        editedReservation.setEdited(LocalDateTime.now());
         // Save updated reservation
        reservationRepository.save(editedReservation);
 
@@ -138,7 +141,6 @@ public class ReservationService {
         reservation.setReservationTime(request.getReservationTime());
         reservation.setNumberOfParticipants(request.getNumberOfParticipants());
         reservation.setCreated(request.getCreated());
-        reservation.setEdited(request.getEdited());
         reservation.setCancelled(request.isCancelled());
         reservation.setReservedActivities(request.getReservedActivities());
     }
