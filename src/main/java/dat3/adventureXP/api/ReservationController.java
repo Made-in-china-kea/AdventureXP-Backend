@@ -45,4 +45,9 @@ public class ReservationController {
     public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Integer id) {
         return reservationService.cancelReservation(id);
     }
+
+    @GetMapping("/{date}/{activityId}/available")
+    public List<ReservationDto> getAvailableReservations(@PathVariable String date, @PathVariable Integer activityId) {
+        return reservationService.getAvailableReservations(date, activityId);
+    }
 }

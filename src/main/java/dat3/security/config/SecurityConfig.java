@@ -63,6 +63,7 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/id")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/reservations/id/cancel")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/date/activityId/available")).permitAll()
 
             // add for activities
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities")).permitAll()
