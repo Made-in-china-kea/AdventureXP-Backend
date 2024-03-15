@@ -3,6 +3,7 @@ package dat3.adventureXP.api;
 import dat3.adventureXP.entity.Guest;
 import dat3.adventureXP.repository.GuestRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +20,15 @@ public class GuestController {
     }
 
     // Similar CRUD operations as in ActivityController (adjust for Guest entity)
-    // Read All (GET)
+
+
     @GetMapping
     public List<Guest> getAllGuests() {
         return guestRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Guest getGuestById(@PathVariable Integer id) {
+        return guestRepository.findById(id).orElse(null);
     }
 }
