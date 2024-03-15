@@ -46,26 +46,10 @@ public class Reservation {
     @OneToMany(mappedBy = "reservationId", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<ReservationActivity> reservedActivities = new HashSet<>();
 
-
-   public Reservation(ReservationDto r) {
-       this.id = r.getId();
-       this.reservationDate = r.getReservationDate();
-       this.reservationTime = r.getReservationTime();
-       this.numberOfParticipants = r.getNumberOfParticipants();
-       this.created = r.getCreated();
-       this.edited = r.getEdited();
-       this.isCancelled = r.isCancelled();
-       if (r.getGuest() != null) {
-           this.guest = new Guest(r.getGuest());
-       } else {
-           this.company = new Company(r.getCompany());
-       }
-
-       this.reservedActivities = r.getReservedActivities();
-   }
-
     public void addActivity(ReservationActivity activity) {
          this.reservedActivities.add(activity);
     }
-
+    public void cancelReservation() {
+        this.isCancelled = true;
+    }
 }

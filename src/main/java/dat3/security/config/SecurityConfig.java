@@ -52,17 +52,33 @@ public class SecurityConfig {
                             .accessDeniedHandler(new CustomOAuth2AccessDeniedHandler()));
 
     http.authorizeHttpRequests((authorize) -> authorize
+
+            // add for users
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themself
 
+
+            // add for reservations
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/id")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/reservations/id/cancel")).permitAll()
+
+            // add for activities
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities/id")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/activities")).hasAuthority("ADMIN")
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/activities")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/activities/id")).hasAuthority("ADMIN")
 
+            // add for guest
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/guests")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/guests/id")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/guests")).permitAll()
 
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/guests")).permitAll()
+            // add for company
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/companies")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/companies/id")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/companies")).permitAll()
 
 
 

@@ -42,5 +42,4 @@ public class Company{
         this.cvr = company.getCvr();
         this.created = LocalDateTime.now();
     }
-
 }

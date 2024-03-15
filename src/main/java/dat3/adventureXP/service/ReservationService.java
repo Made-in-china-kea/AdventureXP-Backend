@@ -150,6 +150,14 @@ public class ReservationService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found");
         }
         reservationRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<ReservationDto> cancelReservation(Integer id) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
+        reservation.cancelReservation();
+        reservationRepository.save(reservation);
+        return ResponseEntity.ok(new ReservationDto(reservation));
     }
 }

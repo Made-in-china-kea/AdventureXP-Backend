@@ -41,9 +41,8 @@ public class ReservationController {
         return reservationService.editReservation(id, request);
     }
 
-    // Delete (DELETE)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Reservation> deleteReservation(@PathVariable Integer id) {
-        return reservationService.deleteReservation(id);
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Integer id) {
+        return reservationService.cancelReservation(id);
     }
 }
