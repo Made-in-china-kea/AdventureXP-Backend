@@ -25,7 +25,9 @@ public class ReservationActivity {
 
     private Integer startTime;
 
-    private Integer endTime = startTime + activity.getTimeSlot();
+    private Integer reservedSlots;
+
+    private Integer endTime = startTime + (activity.getTimeSlot() * reservedSlots);
 
     private LocalDateTime created;
 

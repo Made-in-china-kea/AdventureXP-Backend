@@ -26,9 +26,9 @@ public class ReservationActivityService {
         reservationActivity.setReservation(request.getReservation());
         reservationActivity.setActivity(request.getActivity());
         reservationActivity.setStartTime(request.getStartTime());
+        reservationActivity.setReservedSlots(request.getReservedSlots());
         reservationActivity.setEndTime(request.getEndTime());
         reservationActivity.setCreated(request.getCreated());
-
     }
 }
 

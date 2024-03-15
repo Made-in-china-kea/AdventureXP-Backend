@@ -69,14 +69,15 @@ public class ReservationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reservation must have a guest or company");
         }
 
-        // Create new reservation
+        // Create new reservation record
         Reservation newReservation = new Reservation();
 
-        // create new reservation activity records with the new reservation id and add to the new reservation
+        // create new reservation activity records with the new reservation id
         for (ReservationActivity activity : request.getReservedActivities()) {
             ReservationActivity newActivity = new ReservationActivity();
             newActivity.setReservation(newReservation);
             newActivity.setActivity(activity.getActivity());
+            // add the new reservation activity to the repository
             ReservationActivity newA = reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
 
             // add the new activity to the new reservation
