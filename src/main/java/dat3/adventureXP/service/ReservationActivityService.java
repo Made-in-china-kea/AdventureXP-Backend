@@ -25,6 +25,7 @@ public class ReservationActivityService {
     private void updateReservationActivity(ReservationActivity reservationActivity, ReservationActivityDto request) {
         reservationActivity.setReservationId(request.getReservationId());
         reservationActivity.setActivity(request.getActivity());
+        reservationActivity.setDate(request.getDate());
         reservationActivity.setStartTime(request.getStartTime());
         reservationActivity.setReservedSlots(request.getReservedSlots());
         reservationActivity.setEndTime(request.getEndTime());

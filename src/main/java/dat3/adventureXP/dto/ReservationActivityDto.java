@@ -16,6 +16,7 @@ public class ReservationActivityDto {
 
     private Integer reservationId;
     private Activity activity;
+    private String date;
     private Integer startTime;
     private Integer reservedSlots;
     private Integer endTime;
@@ -24,6 +25,7 @@ public class ReservationActivityDto {
     public ReservationActivityDto(ReservationActivity r) {
         this.activity = r.getActivity();
         this.reservationId = r.getReservationId();
+        this.date = r.getDate();
         this.startTime = r.getStartTime();
         this.reservedSlots = r.getReservedSlots();
         this.endTime = r.getEndTime();

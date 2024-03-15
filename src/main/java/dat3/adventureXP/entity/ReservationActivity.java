@@ -20,6 +20,7 @@ public class ReservationActivity {
     @Id
     @ManyToOne
     private Activity activity;
+    private String date;
     private Integer startTime;
     private Integer reservedSlots;
     private Integer endTime = startTime + (activity.getTimeSlot() * reservedSlots);
