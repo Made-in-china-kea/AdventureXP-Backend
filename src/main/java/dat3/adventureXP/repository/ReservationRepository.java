@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     List<Reservation> findAvailableReservations(String date, Integer activityId);
+
+    List<Integer> getNumberOfParticipants(Integer reservationId);
+
 }

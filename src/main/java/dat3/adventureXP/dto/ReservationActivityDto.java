@@ -17,9 +17,8 @@ public class ReservationActivityDto {
     private Integer reservationId;
     private Activity activity;
     private String date;
-    private Integer startTime;
-    private Integer reservedSlots;
-    private Integer endTime;
+    private Integer startTime; // military time e.g. 1300 for 1:00 PM
+    private Integer reservedSlots; // Number of slots reserved for this activity
     private LocalDateTime created;
 
     public ReservationActivityDto(ReservationActivity r) {
@@ -28,7 +27,6 @@ public class ReservationActivityDto {
         this.date = r.getDate();
         this.startTime = r.getStartTime();
         this.reservedSlots = r.getReservedSlots();
-        this.endTime = r.getEndTime();
         this.created = r.getCreated();
     }
 }

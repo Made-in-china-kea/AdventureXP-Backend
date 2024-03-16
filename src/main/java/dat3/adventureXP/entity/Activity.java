@@ -25,6 +25,6 @@ public class Activity {
 
     private Integer ageLimit;
 
-    private Integer timeSlot;
+    private Integer timeSlot; //minutes
 
 }

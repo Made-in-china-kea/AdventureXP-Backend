@@ -161,10 +161,7 @@ public class ReservationService {
         return ResponseEntity.ok(new ReservationDto(reservation));
     }
 
-    public List<ReservationDto> getAvailableReservations(String date, Integer activityId) {
-        List<Reservation> reservations = reservationRepository.findAvailableReservations(date, activityId);
-        return reservations.stream()
-                .map(ReservationDto::new)
-                .collect(Collectors.toList());
+    public List<Integer> getNumberOfParticipants() {
+        return reservationRepository.getNumberOfParticipants();
     }
 }

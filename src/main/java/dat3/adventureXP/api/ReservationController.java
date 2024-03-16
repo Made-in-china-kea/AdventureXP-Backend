@@ -2,6 +2,7 @@ package dat3.adventureXP.api;
 
 import dat3.adventureXP.dto.ReservationDto;
 import dat3.adventureXP.entity.Reservation;
+import dat3.adventureXP.service.ReservationActivityService;
 import dat3.adventureXP.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,11 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
+    private final ReservationActivityService reservationActivityService;
+
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
+        this.reservationActivityService = new ReservationActivityService();
     }
 
     // Create (POST)
@@ -46,8 +50,8 @@ public class ReservationController {
         return reservationService.cancelReservation(id);
     }
 
-    @GetMapping("/{date}/{activityId}/available")
-    public List<ReservationDto> getAvailableReservations(@PathVariable String date, @PathVariable Integer activityId) {
-        return reservationService.getAvailableReservations(date, activityId);
+    @GetMapping("/{date}/{activityId}/availableSlots")
+    public List<Integer> getAvailableSlots(@PathVariable String date, @PathVariable Integer activityId) {
+        return reservationActivityService.getAvailableSpots(date, activityId);
     }
 }
