@@ -1,6 +1,5 @@
 package dat3.adventureXP.entity;
 
-import dat3.adventureXP.dto.ReservationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

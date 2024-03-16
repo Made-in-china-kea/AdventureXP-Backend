@@ -3,18 +3,17 @@ package dat3.adventureXP.service;
 import dat3.adventureXP.dto.ReservationActivityDto;
 import dat3.adventureXP.entity.ReservationActivity;
 import dat3.adventureXP.repository.ReservationActivityRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class ReservationActivityService {
 
     private final ReservationActivityRepository reservationActivityRepository;
 
     public ReservationActivityService(ReservationActivityRepository reservationActivityRepository) {
-    this.reservationActivityRepository = reservationActivityRepository;
+        this.reservationActivityRepository = reservationActivityRepository;
     }
 
     // add activity reservation to ReservationActivityRepository and return the new ReservationActivity record
@@ -23,7 +22,7 @@ public class ReservationActivityService {
         updateReservationActivity(newReservationActivity, request);
         reservationActivityRepository.save(newReservationActivity);
         return newReservationActivity;
-        }
+    }
 
 
         // updates the object with the new values from the request

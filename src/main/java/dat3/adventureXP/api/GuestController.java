@@ -19,9 +19,6 @@ public class GuestController {
         this.guestRepository = guestRepository;
     }
 
-    // Similar CRUD operations as in ActivityController (adjust for Guest entity)
-
-
     @GetMapping
     public List<Guest> getAllGuests() {
         return guestRepository.findAll();

@@ -3,7 +3,6 @@ package dat3.adventureXP.dto;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Optional;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

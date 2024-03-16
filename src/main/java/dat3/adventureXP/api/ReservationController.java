@@ -1,7 +1,6 @@
 package dat3.adventureXP.api;
 
 import dat3.adventureXP.dto.ReservationDto;
-import dat3.adventureXP.entity.Reservation;
 import dat3.adventureXP.service.ReservationActivityService;
 import dat3.adventureXP.service.ReservationService;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ public class ReservationController {
 
     private final ReservationActivityService reservationActivityService;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, ReservationActivityService reservationActivityService) {
         this.reservationService = reservationService;
-        this.reservationActivityService = new ReservationActivityService();
+        this.reservationActivityService = reservationActivityService;
     }
 
     // Create (POST)

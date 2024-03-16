@@ -160,8 +160,4 @@ public class ReservationService {
         reservationRepository.save(reservation);
         return ResponseEntity.ok(new ReservationDto(reservation));
     }
-
-    public List<Integer> getNumberOfParticipants() {
-        return reservationRepository.getNumberOfParticipants();
-    }
 }

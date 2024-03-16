@@ -2,7 +2,6 @@ package dat3.adventureXP.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.adventureXP.entity.Activity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

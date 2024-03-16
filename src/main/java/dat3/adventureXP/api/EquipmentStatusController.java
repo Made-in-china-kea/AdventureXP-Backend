@@ -2,14 +2,10 @@ package dat3.adventureXP.api;
 
 import dat3.adventureXP.entity.EquipmentStatus;
 import dat3.adventureXP.repository.EquipmentStatusRepository;
-import org.apache.coyote.Response;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/api/equipment/status")
