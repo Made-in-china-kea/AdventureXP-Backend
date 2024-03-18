@@ -23,13 +23,12 @@ public class GuestService {
     }
 
     private void updateGuest(Guest guest, GuestDto guestDto) {
+        if (guestRepository.existsByEmail(guestDto.getEmail())) {
+            throw new IllegalArgumentException("Email already exists");
+        }
         guest.setId(guestDto.getId());
         guest.setFirstName(guestDto.getFirstName());
         guest.setLastName(guestDto.getLastName());
-        guest.setPhoneNumber(guestDto.getPhoneNumber());
         guest.setEmail(guestDto.getEmail());
     }
-
-    // Can implement methods for:
-    // - Guest search functionality based on name or email
 }

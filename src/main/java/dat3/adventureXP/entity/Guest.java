@@ -24,8 +24,6 @@ public class Guest {
 
     private String lastName;
 
-    private String phoneNumber;
-
     @Column(nullable = false, unique = true)
     private String email;
     @CreationTimestamp
@@ -34,7 +32,6 @@ public class Guest {
     public Guest(GuestDto guest) {
         this.firstName = guest.getFirstName();
         this.lastName = guest.getLastName();
-        this.phoneNumber = guest.getPhoneNumber();
         this.email = guest.getEmail();
         this.created = LocalDateTime.now();
     }
