@@ -61,6 +61,8 @@ public class ReservationActivityService {
             availableStartTime += 100; // Add 1 hour for the next slot
         }
 
+        System.out.println("Available slots: " + availableSlots);
+
         return availableSlots;
     }
 }

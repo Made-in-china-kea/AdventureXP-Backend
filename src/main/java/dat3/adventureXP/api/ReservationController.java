@@ -4,6 +4,7 @@ import dat3.adventureXP.dto.ReservationDto;
 import dat3.adventureXP.service.ReservationActivityService;
 import dat3.adventureXP.service.ReservationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ReservationController {
         return reservationService.createReservation(request);
     }
     // Read All (GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public List<ReservationDto> getAllReservations() {
         return reservationService.getAllReservations();
@@ -39,6 +41,7 @@ public class ReservationController {
     }
 
     // Update (PUT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ReservationDto> updateReservation(@PathVariable Integer id, @RequestBody ReservationDto request) {
         return reservationService.editReservation(id, request);
@@ -49,7 +52,7 @@ public class ReservationController {
         return reservationService.cancelReservation(id);
     }
 
-    @GetMapping("/{date}/{activityId}/availableSlots")
+    @GetMapping("/{date}/{activityId}/availableslots")
     public List<Integer> getAvailableSlots(@PathVariable String date, @PathVariable Integer activityId) {
         return reservationActivityService.getAvailableSpots(date, activityId);
     }
