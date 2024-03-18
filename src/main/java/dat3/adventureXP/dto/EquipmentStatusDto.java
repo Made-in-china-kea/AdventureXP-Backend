@@ -9,12 +9,12 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class EquipmentStatusDto {
-    private Integer id;
-    private Integer equipmentId;  // Use equipment ID instead of the Equipment object
+    private int id;
+    private int equipmentId;  // Use equipment ID instead of the Equipment object
     private EquipmentStatusType status;
     private Date date;
 
-    public EquipmentStatusDto(Integer id, Integer equipmentId, EquipmentStatusType status, Date date) {
+    public EquipmentStatusDto(int id, Integer equipmentId, EquipmentStatusType status, Date date) {
         this.id = id;
         this.equipmentId = equipmentId;
         this.status = status;

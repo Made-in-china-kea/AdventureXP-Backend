@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationActivityDto {
 
-    private Integer reservationId;
+    private int reservationId;
     private Activity activity;
     private String date;
-    private Integer startTime; // military time e.g. 1300 for 1:00 PM
-    private Integer reservedSlots; // Number of slots reserved for this activity
+    private int startTime; // military time e.g. 1300 for 1:00 PM
+    private int reservedSlots; // Number of slots reserved for this activity
     private LocalDateTime created;
 
     public ReservationActivityDto(ReservationActivity r) {

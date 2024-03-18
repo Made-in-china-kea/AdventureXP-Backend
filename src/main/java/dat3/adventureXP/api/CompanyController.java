@@ -22,11 +22,11 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable Integer id) {
+    public Company getCompanyById(@PathVariable int id) {
         return companyRepository.findById(id).orElse(null);
     }
     @DeleteMapping("/{id}")
-    public void deleteCompany(@PathVariable Integer id) {
+    public void deleteCompany(@PathVariable int id) {
         companyRepository.deleteById(id);
     }
 }

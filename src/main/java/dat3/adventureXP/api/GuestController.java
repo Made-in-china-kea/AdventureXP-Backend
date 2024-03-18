@@ -25,7 +25,7 @@ public class GuestController {
     }
 
     @GetMapping("/{id}")
-    public Guest getGuestById(@PathVariable Integer id) {
+    public Guest getGuestById(@PathVariable int id) {
         return guestRepository.findById(id).orElse(null);
     }
 }

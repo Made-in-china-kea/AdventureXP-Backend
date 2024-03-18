@@ -27,6 +27,11 @@ public class ReservationController {
     public ReservationDto createReservation(@RequestBody ReservationDto request){
         return reservationService.createReservation(request);
     }
+    // get available slots for an activity
+    @GetMapping("/{activityId}/availableslots")
+    public List<Integer> getAvailableSlots(@RequestParam(required = false) String date, @PathVariable int activityId) {
+        return reservationActivityService.getAvailableSpots(date, activityId);
+    }
     // Read All (GET)
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
@@ -36,24 +41,19 @@ public class ReservationController {
 
     // Read by ID (GET)
     @GetMapping("/{id}")
-    public ReservationDto getReservationById(@PathVariable Integer id) {
+    public ReservationDto getReservationById(@PathVariable int id) {
         return reservationService.getReservationById(id);
     }
 
     // Update (PUT)
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Integer id, @RequestBody ReservationDto request) {
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable int id, @RequestBody ReservationDto request) {
         return reservationService.editReservation(id, request);
     }
 
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Integer id) {
+    public ResponseEntity<ReservationDto> cancelReservation(@PathVariable int id) {
         return reservationService.cancelReservation(id);
-    }
-
-    @GetMapping("/{date}/{activityId}/availableslots")
-    public List<Integer> getAvailableSlots(@PathVariable String date, @PathVariable Integer activityId) {
-        return reservationActivityService.getAvailableSpots(date, activityId);
     }
 }

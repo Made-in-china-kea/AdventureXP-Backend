@@ -8,12 +8,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CompanyDto {
-        private Integer id;
+        private int id;
         private String companyName;
         private String contactFirstName;
         private String contactLastName;
         private String contactEmail;
-        private Integer cvr;
+        private int cvr;
 
      public CompanyDto(Company c) {
          this.id = c.getId();

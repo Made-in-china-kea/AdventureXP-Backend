@@ -12,11 +12,11 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ActivityDto {
 
-     private Integer id;
+     private int id;
      private String name;
-     private Integer price;
-     private Integer ageLimit;
-     private Integer timeSlot; // 1 hour = 100, 2 hours = 200, 3 hours = 300, etc.
+     private double price;
+     private int ageLimit;
+     private int timeSlot; // 1 hour = 100, 2 hours = 200, 3 hours = 300, etc.
 
      public ActivityDto(Activity a) {
         this.id = a.getId();

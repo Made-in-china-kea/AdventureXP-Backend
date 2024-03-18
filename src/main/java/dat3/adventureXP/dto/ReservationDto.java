@@ -22,7 +22,7 @@ public class ReservationDto {
      private CompanyDto company;
      private Date reservationDate;
      private Time reservationTime;
-     private Integer numberOfParticipants;
+     private int numberOfParticipants;
      private LocalDateTime created;
      private LocalDateTime edited;
      private Set<ReservationActivity> reservedActivities;

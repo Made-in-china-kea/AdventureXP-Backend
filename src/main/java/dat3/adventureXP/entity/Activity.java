@@ -14,15 +14,15 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
     
-    private Integer price;
+    private double price;
 
-    private Integer ageLimit;
+    private int ageLimit;
 
-    private Integer timeSlot; // 100 for 1 hour, 200 for 2 hours, etc.
+    private int timeSlot; // 100 for 1 hour, 200 for 2 hours, etc.
 
 }

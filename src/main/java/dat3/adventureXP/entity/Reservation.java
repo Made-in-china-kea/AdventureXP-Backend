@@ -37,7 +37,7 @@ public class Reservation {
     private Time reservationTime;
 
     @Column(nullable = false)
-    private Integer numberOfParticipants;
+    private int numberOfParticipants;
     @CreationTimestamp
     private LocalDateTime created;
     @UpdateTimestamp

@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EquipmentDto {
-    private Integer id;
+    private int id;
     private String name;
-    private Integer activityId;  // Use activity ID instead of the Activity object
+    private int activityId;  // Use activity ID instead of the Activity object
 
-    public EquipmentDto(Integer id, String name, Integer activityId) {
+    public EquipmentDto(int id, String name, int activityId) {
         this.id = id;
         this.name = name;
         this.activityId = activityId;

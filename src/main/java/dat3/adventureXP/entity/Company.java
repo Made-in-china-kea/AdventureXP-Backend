@@ -17,7 +17,7 @@ public class Company{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String companyName;
@@ -30,7 +30,7 @@ public class Company{
     private String contactEmail;
 
     @Column(nullable = false, unique = true)
-    private Integer cvr;
+    private int cvr;
 
     private LocalDateTime created;
 
