@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "Activities")
+@Table(name = "activities")
 public class Activity {
 
     @Id
@@ -23,6 +23,6 @@ public class Activity {
 
     private Integer ageLimit;
 
-    private Integer timeSlot; //minutes
+    private Integer timeSlot; // 100 for 1 hour, 200 for 2 hours, etc.
 
 }

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReservationActivityRepository extends JpaRepository<ReservationActivity, Integer> {
-    Optional<ReservationActivity> findByActivityId(Integer activityId);
 
-
-    List<ReservationActivity> getReservedActivities(String date, Integer activityId);
+    List<ReservationActivity> getReservationActivityByActivity_IdAndDate(Integer activityId, String date);
 }

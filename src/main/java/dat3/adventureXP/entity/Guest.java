@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +28,7 @@ public class Guest {
 
     @Column(nullable = false, unique = true)
     private String email;
-
+    @CreationTimestamp
     private LocalDateTime created;
 
     public Guest(GuestDto guest) {

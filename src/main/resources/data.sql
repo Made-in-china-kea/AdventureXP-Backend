@@ -1,5 +1,5 @@
-INSERT INTO Activities (name, price, ageLimit, timeSlot) VALUES ('gokart', 50, 15, 100);
-INSERT INTO Activities (name, price, ageLimit, timeSlot) VALUES ('sumowrestling', 30, 18, 100);
-INSERT INTO Activities (name, price, ageLimit, timeSlot) VALUES ('biking', 20, 10, 300);  -- timeSlot can be null for biking
-INSERT INTO Activities (name, price, ageLimit, timeSlot) VALUES ('mini-golf', 15, 8, 200);
-INSERT INTO Activities (name, price, ageLimit, timeSlot) VALUES ('paintball', 40, 18, 200);
+INSERT INTO activities (name, price, age_limit, time_slot) VALUES ('gokart', 500, 15, 100);
+INSERT INTO activities (name, price, age_limit, time_slot) VALUES ('sumowrestling', 300, 18, 100);
+INSERT INTO activities (name, price, age_limit, time_slot) VALUES ('biking', 200, 10, 300);  -- timeSlot can be null for biking
+INSERT INTO activities (name, price, age_limit, time_slot) VALUES ('mini-golf', 150, 8, 200);
+INSERT INTO activities (name, price, age_limit, time_slot) VALUES ('paintball', 400, 18, 200);

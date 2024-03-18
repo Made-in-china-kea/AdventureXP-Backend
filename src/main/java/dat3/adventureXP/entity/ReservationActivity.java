@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class ReservationActivity {
     private String date;
     private Integer startTime; // military time e.g. 1300 for 1:00 PM
     private Integer reservedSlots; // Number of slots reserved for this activity
+    @CreationTimestamp
     private LocalDateTime created;
 
 }

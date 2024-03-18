@@ -36,7 +36,7 @@ public class ReservationActivityService {
     }
 
     public List<Integer> getAvailableSpots(String date, Integer activityId) {
-        List<ReservationActivity> reservedActivities = reservationActivityRepository.getReservedActivities(date, activityId);
+        List<ReservationActivity> reservedActivities = reservationActivityRepository.getReservationActivityByActivity_IdAndDate(activityId, date);
 
         List<Integer> availableSlots = new ArrayList<>();
         int closingTime = 2200; // 10 PM

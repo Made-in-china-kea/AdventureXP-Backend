@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
@@ -36,8 +38,9 @@ public class Reservation {
 
     @Column(nullable = false)
     private Integer numberOfParticipants;
-
+    @CreationTimestamp
     private LocalDateTime created;
+    @UpdateTimestamp
     private LocalDateTime edited;
     private boolean isCancelled;
 
