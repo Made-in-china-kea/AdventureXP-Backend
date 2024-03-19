@@ -59,7 +59,7 @@ public class SecurityConfig {
 
 
             // add for reservations
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/activityId/availableslots")).permitAll() // anyone can get available slots
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/*/availableslots")).permitAll() // anyone can get available slots
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")).permitAll() // anyone can create a reservation
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/all")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/id")).permitAll()
