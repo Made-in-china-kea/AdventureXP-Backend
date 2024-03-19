@@ -2,6 +2,7 @@ package dat3.adventureXP.api;
 
 import dat3.adventureXP.dto.ActivityDto;
 import dat3.adventureXP.service.ActivityService;
+import dat3.adventureXP.service.ReservationActivityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,12 @@ public class ActivityController {
 
     private final ActivityService activityService;
 
-    public ActivityController(ActivityService activityService) {
+    private final ReservationActivityService reservationActivityService;
+
+    public ActivityController(ActivityService activityService, ReservationActivityService reservationActivityService) {
+
         this.activityService = activityService;
+        this.reservationActivityService = reservationActivityService;
     }
 
     // Create (POST)
@@ -45,6 +50,12 @@ public class ActivityController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteActivity(@PathVariable int id) {
         return activityService.deleteActivity(id);
+    }
+
+    // get available slots for an activity
+    @GetMapping("/{id}/availableslots")
+    public List<Integer> getAvailableSlots(@RequestParam(required = false) String date, @PathVariable int id) {
+        return reservationActivityService.getAvailableSpots(date, id);
     }
 }
 

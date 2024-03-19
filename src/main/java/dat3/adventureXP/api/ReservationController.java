@@ -15,11 +15,8 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    private final ReservationActivityService reservationActivityService;
-
     public ReservationController(ReservationService reservationService, ReservationActivityService reservationActivityService) {
         this.reservationService = reservationService;
-        this.reservationActivityService = reservationActivityService;
     }
 
     // Create (POST)
@@ -27,11 +24,7 @@ public class ReservationController {
     public ReservationDto createReservation(@RequestBody ReservationDto request){
         return reservationService.createReservation(request);
     }
-    // get available slots for an activity
-    @GetMapping("/{activityId}/availableslots")
-    public List<Integer> getAvailableSlots(@RequestParam(required = false) String date, @PathVariable int activityId) {
-        return reservationActivityService.getAvailableSpots(date, activityId);
-    }
+
     // Read All (GET)
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
