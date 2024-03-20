@@ -52,11 +52,36 @@ public class SecurityConfig {
                             .accessDeniedHandler(new CustomOAuth2AccessDeniedHandler()));
 
     http.authorizeHttpRequests((authorize) -> authorize
+
+            // add for users
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themself
 
-            //This is for demo purposes only, and should be removed for a real system
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
+
+            // add for reservations
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")).permitAll() // anyone can create a reservation
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/all")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/reservations/{id}")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/reservations/{id}/cancel")).permitAll()
+
+            // add for activities
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities/*/availableslots")).permitAll() // anyone can get available slots
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/activities/{id}")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/activities")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/activities/{id}")).hasAuthority("ADMIN")
+
+            // add for guest
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/guests")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/guests/{id}")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/guests")).permitAll()
+
+            // add for company
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/companies")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/companies/{id}")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/companies")).permitAll()
+
+
 
             //Allow index.html for anonymous users
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/index.html")).permitAll()
@@ -70,9 +95,6 @@ public class SecurityConfig {
             //Required for error responses
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
 
-            //This is for demo purposes only, and should be removed for a real system
-            //.requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/user-only")).hasAuthority("USER")
-            //.requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
             //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
