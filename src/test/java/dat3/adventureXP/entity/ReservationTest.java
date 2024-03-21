@@ -13,118 +13,89 @@ class ReservationTest {
     @Test
     void addActivity() {
 
-        //create a new reservation
         Reservation reservation = new Reservation();
-        //create a new activity
         ReservationActivity activity = new ReservationActivity();
-        //add the activity to the reservation
         reservation.addActivity(activity);
-        //check if the activity is in the reservation
         assertTrue(reservation.getReservedActivities().contains(activity));
     }
 
     @Test
     void cancelReservation() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //cancel the reservation
         reservation.cancelReservation();
-        //check if the reservation is cancelled
         assertTrue(reservation.isCancelled());
     }
 
     @Test
     void getId() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //set the id to 1
         reservation.setId(1);
-        //check if the id is 1
         assertEquals(1, reservation.getId());
     }
 
     @Test
     void getGuest() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new guest
         Guest guest = new Guest();
-        //set the guest to the reservation
         reservation.setGuest(guest);
-        //check if the guest is the same as the one set
         assertEquals(guest, reservation.getGuest());
     }
 
     @Test
     void getCompany() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new company
         Company company = new Company();
-        //set the company to the reservation
         reservation.setCompany(company);
-        //check if the company is the same as the one set
         assertEquals(company, reservation.getCompany());
 
     }
 
     @Test
     void getReservationDate() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new date
         Date date = new Date();
-        //set the date to the reservation
         reservation.setReservationDate(date);
-        //check if the date is the same as the one set
         assertEquals(date, reservation.getReservationDate());
     }
 
     @Test
     void getReservationTime() {
 
-        //create a new reservation
         Reservation reservation = new Reservation();
-        //create a new time
         Time time = new Time(0);
-        //set the time to the reservation
         reservation.setReservationTime(time);
-        //check if the time is the same as the one set
         assertEquals(time, reservation.getReservationTime());
     }
 
     @Test
     void getNumberOfParticipants() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //set the number of participants to 10
         reservation.setNumberOfParticipants(10);
-        //check if the number of participants is 10
         assertEquals(10, reservation.getNumberOfParticipants());
     }
 
     @Test
     void getCreated() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new date
         LocalDateTime date = LocalDateTime.now();
-        //set the date to the reservation
         reservation.setCreated(date);
-        //check if the date is the same as the one set
         assertEquals(date, reservation.getCreated());
 
     }
 
     @Test
     void getEdited() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new date
         LocalDateTime date = LocalDateTime.now();
-        //set the date to the reservation
         reservation.setEdited(date);
-        //check if the date is the same as the one set
         assertEquals(date, reservation.getEdited());
 
 
@@ -132,137 +103,18 @@ class ReservationTest {
 
     @Test
     void isCancelled() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //cancel the reservation
         reservation.cancelReservation();
-        //check if the reservation is cancelled
         assertTrue(reservation.isCancelled());
     }
 
     @Test
     void getReservedActivities() {
-        //create a new reservation
+
         Reservation reservation = new Reservation();
-        //create a new activity
         ReservationActivity activity = new ReservationActivity();
-        //add the activity to the reservation
         reservation.addActivity(activity);
-        //check if the activity is in the reservation
-        assertTrue(reservation.getReservedActivities().contains(activity));
-    }
-
-    @Test
-    void setId() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //set the id to 1
-        reservation.setId(1);
-        //check if the id is 1
-        assertEquals(1, reservation.getId());
-    }
-
-    @Test
-    void setGuest() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new guest
-        Guest guest = new Guest();
-        //set the guest to the reservation
-        reservation.setGuest(guest);
-        //check if the guest is the same as the one set
-        assertEquals(guest, reservation.getGuest());
-    }
-
-    @Test
-    void setCompany() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new company
-        Company company = new Company();
-        //set the company to the reservation
-        reservation.setCompany(company);
-        //check if the company is the same as the one set
-        assertEquals(company, reservation.getCompany());
-    }
-
-    @Test
-    void setReservationDate() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new date
-        Date date = new Date();
-        //set the date to the reservation
-        reservation.setReservationDate(date);
-        //check if the date is the same as the one set
-        assertEquals(date, reservation.getReservationDate());
-    }
-
-    @Test
-    void setReservationTime() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new time
-        Time time = new Time(0);
-        //set the time to the reservation
-        reservation.setReservationTime(time);
-        //check if the time is the same as the one set
-        assertEquals(time, reservation.getReservationTime());
-    }
-
-    @Test
-    void setNumberOfParticipants() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //set the number of participants to 10
-        reservation.setNumberOfParticipants(10);
-        //check if the number of participants is 10
-        assertEquals(10, reservation.getNumberOfParticipants());
-    }
-
-    @Test
-    void setCreated() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new date
-        LocalDateTime date = LocalDateTime.now();
-        //set the date to the reservation
-        reservation.setCreated(date);
-        //check if the date is the same as the one set
-        assertEquals(date, reservation.getCreated());
-    }
-
-    @Test
-    void setEdited() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new date
-        LocalDateTime date = LocalDateTime.now();
-        //set the date to the reservation
-        reservation.setEdited(date);
-        //check if the date is the same as the one set
-        assertEquals(date, reservation.getEdited());
-    }
-
-    @Test
-    void setCancelled() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //cancel the reservation
-        reservation.cancelReservation();
-        //check if the reservation is cancelled
-        assertTrue(reservation.isCancelled());
-    }
-
-    @Test
-    void setReservedActivities() {
-        //create a new reservation
-        Reservation reservation = new Reservation();
-        //create a new activity
-        ReservationActivity activity = new ReservationActivity();
-        //add the activity to the reservation
-        reservation.addActivity(activity);
-        //check if the activity is in the reservation
         assertTrue(reservation.getReservedActivities().contains(activity));
     }
 }
