@@ -14,11 +14,11 @@ public class GuestService {
         this.guestRepository = guestRepository;
     }
 
-    public GuestDto createGuest(GuestDto guest) {
+    public Guest createGuest(GuestDto guest) {
         Guest newGuest = new Guest();
         updateGuest(newGuest, guest);
         guestRepository.save(newGuest);
-        return new GuestDto(newGuest);
+        return newGuest;
 
     }
 
@@ -26,7 +26,6 @@ public class GuestService {
         if (guestRepository.existsByEmail(guestDto.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
         }
-        guest.setId(guestDto.getId());
         guest.setFirstName(guestDto.getFirstName());
         guest.setLastName(guestDto.getLastName());
         guest.setEmail(guestDto.getEmail());

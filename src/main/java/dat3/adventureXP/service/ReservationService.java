@@ -23,13 +23,19 @@ public class ReservationService {
     private final GuestRepository guestRepository;
     private final CompanyRepository companyRepository;
     private final ReservationActivityRepository reservationActivityRepository;
+    private final GuestService guestService;
+    private final CompanyService companyService;
 
     public ReservationService(ReservationRepository reservationRepository,
-                              GuestRepository guestRepository, CompanyRepository companyRepository, ReservationActivityRepository reservationActivityRepository) {
+                              GuestRepository guestRepository, CompanyRepository companyRepository,
+                              ReservationActivityRepository reservationActivityRepository,
+                              GuestService guestService, CompanyService companyService) {
         this.reservationRepository = reservationRepository;
         this.guestRepository = guestRepository;
         this.companyRepository = companyRepository;
         this.reservationActivityRepository = reservationActivityRepository;
+        this.guestService = guestService;
+        this.companyService = companyService;
     }
 
     @Transactional
@@ -37,28 +43,44 @@ public class ReservationService {
         if (request.getId() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot provide the id for a new reservation");
         }
-        // check if guest or company exist in repository else create new record or throw exception
-        Guest existingGuest = null;
-        Company existingCompany = null;
-        if (request.getGuest() != null) {
-            existingGuest = guestRepository.findByEmail(request.getGuest().getEmail()).orElse(null);
-        } else if (request.getCompany() != null) {
-            existingCompany = companyRepository.findByCompanyName(request.getCompany().getCompanyName()).orElse(null);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reservation must have a guest or company");
-        }
         // Create new reservation
         Reservation newReservation = new Reservation();
         newReservation.setReservationDate(request.getReservationDate());
 
         // Save the reservation to create the ID (required for activities)
         reservationRepository.save(newReservation);
+
+        // check if guest or company exist in repository else create new record and set in the reservation
+        if (request.getGuest() != null) {
+            newReservation.setCompany(null);
+            Guest existingGuest = guestRepository.findByEmail(request.getGuest().getEmail()).orElse(null);
+            if (existingGuest == null) {
+                Guest newGuest = guestService.createGuest(request.getGuest());
+                newReservation.setGuest(newGuest);
+                System.out.println("newGuest: " + newGuest);
+            }  else {
+                newReservation.setGuest(existingGuest);
+                System.out.println("Guest have been here before. Welcome again " + existingGuest.getFirstName() + " " + existingGuest.getLastName());
+            }
+
+        } else if (request.getCompany() != null) {
+            newReservation.setGuest(null);
+            Company existingCompany = companyRepository.findByCompanyName(request.getCompany().getCompanyName()).orElse(null);
+            if (existingCompany == null) {
+                Company newCompany = companyService.createCompany(request.getCompany());
+                newReservation.setCompany(newCompany);
+                System.out.println("newCompany: " + newCompany);
+            } else {
+                newReservation.setCompany(existingCompany);
+                System.out.println("Company have been here before. Welcome again " + existingCompany.getCompanyName());
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reservation must have a guest or company");
+        }
+
         // Set other reservation details
-        newReservation.setGuest(existingGuest);
-        newReservation.setCompany(existingCompany);
         newReservation.setNumberOfParticipants(request.getNumberOfParticipants());
         newReservation.setCancelled(request.isCancelled());
-
 
         // Create reservation activities with reference to the saved reservation
         for (ReservationActivity activity : request.getReservedActivities()) {

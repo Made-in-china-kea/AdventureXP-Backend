@@ -4,8 +4,9 @@ import dat3.adventureXP.dto.CompanyDto;
 import dat3.adventureXP.entity.Company;
 import dat3.adventureXP.repository.CompanyRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
+@Service
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
@@ -14,7 +15,7 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public CompanyDto createCompany(CompanyDto company) {
+    public Company createCompany(CompanyDto company) {
         if (companyRepository.existsByContactEmail(company.getContactEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
         }
@@ -27,11 +28,10 @@ public class CompanyService {
         Company newCompany = new Company();
         updateCompany(newCompany, company);
         companyRepository.save(newCompany);
-        return new CompanyDto(newCompany);
+        return newCompany;
     }
 
     private void updateCompany(Company company, CompanyDto companyDto) {
-        company.setId(companyDto.getId());
         company.setCompanyName(companyDto.getCompanyName());
         company.setContactFirstName(companyDto.getContactFirstName());
         company.setContactLastName(companyDto.getContactLastName());
