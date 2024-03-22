@@ -74,7 +74,7 @@ class ReservationTest {
         //create a new reservation
         Reservation reservation = new Reservation();
         //create a new date
-        LocalDate date = new Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        String date = "2021-12-12";
         //set the date to the reservation
         reservation.setReservationDate(date);
         //check if the date is the same as the one set

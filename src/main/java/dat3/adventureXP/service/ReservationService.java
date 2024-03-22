@@ -1,8 +1,5 @@
 package dat3.adventureXP.service;
 
-import dat3.adventureXP.dto.ReservationActivityDto;
-import dat3.adventureXP.dto.CompanyDto;
-import dat3.adventureXP.dto.GuestDto;
 import dat3.adventureXP.dto.ReservationDto;
 import dat3.adventureXP.entity.*;
 import dat3.adventureXP.repository.CompanyRepository;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,21 +24,12 @@ public class ReservationService {
     private final CompanyRepository companyRepository;
     private final ReservationActivityRepository reservationActivityRepository;
 
-    private final GuestService guestService;
-
-    private final CompanyService companyService;
-
-    private final ReservationActivityService reservationActivityService;
-
     public ReservationService(ReservationRepository reservationRepository,
                               GuestRepository guestRepository, CompanyRepository companyRepository, ReservationActivityRepository reservationActivityRepository) {
         this.reservationRepository = reservationRepository;
         this.guestRepository = guestRepository;
         this.companyRepository = companyRepository;
         this.reservationActivityRepository = reservationActivityRepository;
-        this.guestService = new GuestService(guestRepository);
-        this.companyService = new CompanyService(companyRepository);
-        this.reservationActivityService = new ReservationActivityService(reservationActivityRepository);
     }
 
     @Transactional
@@ -50,33 +37,40 @@ public class ReservationService {
         if (request.getId() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot provide the id for a new reservation");
         }
-        // check if guest or company exist in repository else create new record
+        // check if guest or company exist in repository else create new record or throw exception
+        Guest existingGuest = null;
+        Company existingCompany = null;
         if (request.getGuest() != null) {
-            if (guestRepository.findByEmail(request.getGuest().getEmail()).isEmpty()) {
-                GuestDto newGuest = guestService.createGuest(request.getGuest());
-                System.out.println("newGuest: " + newGuest);
-            }  else {
-                System.out.println("Guest have been here before. Welcome again " + request.getGuest().getFirstName() + " " + request.getGuest().getLastName() );
-                }
-
+            existingGuest = guestRepository.findByEmail(request.getGuest().getEmail()).orElse(null);
         } else if (request.getCompany() != null) {
-            if (companyRepository.findByCompanyName(request.getCompany().getCompanyName()).isEmpty()) {
-                CompanyDto newCompany = companyService.createCompany(request.getCompany());
-                System.out.println("newCompany: " + newCompany);
-            } else {
-                System.out.println("Company have been here before. Welcome again " + request.getCompany().getCompanyName() );
-            }
+            existingCompany = companyRepository.findByCompanyName(request.getCompany().getCompanyName()).orElse(null);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reservation must have a guest or company");
         }
-
-        // Create new reservation record
+        // Create new reservation
         Reservation newReservation = new Reservation();
+        newReservation.setReservationDate(request.getReservationDate());
 
-        // Set reservation details
-        updateReservation(newReservation, request);
+        // Save the reservation to create the ID (required for activities)
+        reservationRepository.save(newReservation);
+        // Set other reservation details
+        newReservation.setGuest(existingGuest);
+        newReservation.setCompany(existingCompany);
+        newReservation.setNumberOfParticipants(request.getNumberOfParticipants());
+        newReservation.setCancelled(request.isCancelled());
 
-        // Save new reservation
+
+        // Create reservation activities with reference to the saved reservation
+        for (ReservationActivity activity : request.getReservedActivities()) {
+            ReservationActivity newActivity = new ReservationActivity();
+            newActivity.setReservation(newReservation); // Set the saved reservation
+            newActivity.setActivity(activity.getActivity());
+            newActivity.setStartTime(activity.getStartTime());
+            newActivity.setReservedSlots(activity.getReservedSlots());
+            reservationActivityRepository.save(newActivity);
+        }
+
+        // Save updated reservation
         reservationRepository.save(newReservation);
 
         return new ReservationDto(newReservation);
@@ -104,31 +98,17 @@ public class ReservationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
 
         // Update reservation details (assuming relevant fields in request DTO)
-        updateReservation(editedReservation, request);
-        // Save updated reservation
+        editedReservation.setReservationDate(request.getReservationDate());
+        editedReservation.setNumberOfParticipants(request.getNumberOfParticipants());
+        editedReservation.setCancelled(request.isCancelled());
+
+
+        // Update reservation activities
+
        reservationRepository.save(editedReservation);
 
         // Convert to and return ReservationDto
         return ResponseEntity.ok(new ReservationDto(editedReservation));
-    }
-
-    private void updateReservation(Reservation reservation, ReservationDto request ) {
-        // set the guest or company to null if not provided
-        if (request.getGuest() != null) {
-            reservation.setGuest(new Guest(request.getGuest()));
-        } else {
-            reservation.setGuest(null);
-        }
-        if (request.getCompany() != null) {
-            reservation.setCompany(new Company(request.getCompany()));
-        } else {
-            reservation.setCompany(null);
-        }
-
-        reservation.setReservationDate(request.getReservationDate());
-        reservation.setNumberOfParticipants(request.getNumberOfParticipants());
-        reservation.setCancelled(request.isCancelled());
-        reservation.setReservedActivities(request.getReservedActivities());
     }
 
     public ResponseEntity<Reservation> deleteReservation(Integer id) {

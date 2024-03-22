@@ -55,7 +55,7 @@ public class ActivityController {
 
     // get available slots for an activity
     @GetMapping("/{id}/availableslots")
-    public List<Integer> getAvailableSlots(@RequestParam(required = false) LocalDate date, @PathVariable int id) {
+    public List<Integer> getAvailableSlots(@RequestParam(required = false) String date, @PathVariable int id) {
         return reservationActivityService.getAvailableSpots(date, id);
     }
 }

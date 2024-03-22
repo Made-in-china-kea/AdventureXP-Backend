@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface ReservationActivityRepository extends JpaRepository<ReservationActivity, Integer> {
 
-    List<ReservationActivity> getReservationActivityByActivity_IdAndReservation_ReservationDate(Integer activityId, LocalDate date);
+    List<ReservationActivity> getReservationActivityByActivity_IdAndReservation_ReservationDate(Integer activityId, String date);
 }

@@ -36,7 +36,7 @@ public class ReservationActivityService {
         reservationActivity.setCreated(LocalDateTime.now());
     }
 
-    public List<Integer> getAvailableSpots(LocalDate date, Integer activityId) {
+    public List<Integer> getAvailableSpots(String date, Integer activityId) {
         List<ReservationActivity> reservedActivities = reservationActivityRepository.getReservationActivityByActivity_IdAndReservation_ReservationDate(activityId, date);
 
         List<Integer> availableSlots = new ArrayList<>();
