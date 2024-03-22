@@ -1,9 +1,8 @@
 package dat3.adventureXP.dto;
 
-import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.adventureXP.entity.Reservation;
@@ -20,19 +19,17 @@ public class ReservationDto {
      private Integer id;
      private GuestDto guest;
      private CompanyDto company;
-     private Date reservationDate;
-     private Time reservationTime;
+     private LocalDate reservationDate;
      private int numberOfParticipants;
      private LocalDateTime created;
      private LocalDateTime edited;
-     private Set<ReservationActivity> reservedActivities;
+     private List<ReservationActivity> reservedActivities;
      private boolean isCancelled;
 
 
      public ReservationDto(Reservation r ) {
          this.id = r.getId();
          this.reservationDate = r.getReservationDate();
-         this.reservationTime = r.getReservationTime();
          this.numberOfParticipants = r.getNumberOfParticipants();
          this.created = r.getCreated();
          this.edited = r.getEdited();
@@ -40,7 +37,7 @@ public class ReservationDto {
          this.isCancelled = r.isCancelled();
          if (r.getGuest() != null) {
              this.guest = new GuestDto(r.getGuest());
-         } else {
+         } else if (r.getCompany() != null){
              this.company = new CompanyDto(r.getCompany());
          }
      }

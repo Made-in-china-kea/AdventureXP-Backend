@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,6 +34,9 @@ public class Company{
     private int cvr;
 
     private LocalDateTime created;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
 
     public Company(CompanyDto company) {
         this.companyName = company.getCompanyName();

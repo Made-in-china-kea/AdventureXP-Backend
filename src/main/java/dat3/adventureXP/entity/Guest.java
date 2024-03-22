@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +29,9 @@ public class Guest {
     private String email;
     @CreationTimestamp
     private LocalDateTime created;
+
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
 
     public Guest(GuestDto guest) {
         this.firstName = guest.getFirstName();

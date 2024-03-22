@@ -5,6 +5,8 @@ import dat3.adventureXP.entity.ReservationActivity;
 import dat3.adventureXP.repository.ReservationActivityRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -27,16 +29,15 @@ public class ReservationActivityService {
 
         // updates the object with the new values from the request
     private void updateReservationActivity(ReservationActivity reservationActivity, ReservationActivityDto request) {
-        reservationActivity.setReservationId(request.getReservationId());
+        reservationActivity.setReservation(request.getReservation());
         reservationActivity.setActivity(request.getActivity());
-        reservationActivity.setDate(request.getDate());
         reservationActivity.setStartTime(request.getStartTime());
         reservationActivity.setReservedSlots(request.getReservedSlots());
-        reservationActivity.setCreated(request.getCreated());
+        reservationActivity.setCreated(LocalDateTime.now());
     }
 
-    public List<Integer> getAvailableSpots(String date, Integer activityId) {
-        List<ReservationActivity> reservedActivities = reservationActivityRepository.getReservationActivityByActivity_IdAndDate(activityId, date);
+    public List<Integer> getAvailableSpots(LocalDate date, Integer activityId) {
+        List<ReservationActivity> reservedActivities = reservationActivityRepository.getReservationActivityByActivity_IdAndReservation_ReservationDate(activityId, date);
 
         List<Integer> availableSlots = new ArrayList<>();
         int closingTime = 2200; // 10 PM

@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReservationActivityTest {
 
     @Test
-    void getReservationId() {
+    void getReservation() {
 
         ReservationActivity reservationActivity = new ReservationActivity();
-        reservationActivity.setReservationId(1);
-        assertEquals(1, reservationActivity.getReservationId());
+        reservationActivity.setReservation(new Reservation());
+        assertEquals(new Reservation(), reservationActivity.getReservation());
     }
 
     @Test
@@ -23,14 +23,6 @@ class ReservationActivityTest {
         Activity activity = new Activity();
         reservationActivity.setActivity(activity);
         assertEquals(activity, reservationActivity.getActivity());
-    }
-
-    @Test
-    void getDate() {
-
-        ReservationActivity reservationActivity = new ReservationActivity();
-        reservationActivity.setDate("2021-05-05");
-        assertEquals("2021-05-05", reservationActivity.getDate());
     }
 
     @Test

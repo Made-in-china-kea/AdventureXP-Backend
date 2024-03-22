@@ -2,6 +2,7 @@ package dat3.adventureXP.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.adventureXP.entity.Activity;
+import dat3.adventureXP.entity.Reservation;
 import dat3.adventureXP.entity.ReservationActivity;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationActivityDto {
 
-    private int reservationId;
+    private Reservation reservation;
     private Activity activity;
     private String date;
     private int startTime; // military time e.g. 1300 for 1:00 PM
@@ -21,8 +22,7 @@ public class ReservationActivityDto {
 
     public ReservationActivityDto(ReservationActivity r) {
         this.activity = r.getActivity();
-        this.reservationId = r.getReservationId();
-        this.date = r.getDate();
+        this.reservation = r.getReservation();
         this.startTime = r.getStartTime();
         this.reservedSlots = r.getReservedSlots();
         this.created = r.getCreated();

@@ -17,11 +17,13 @@ import java.time.LocalDateTime;
 public class ReservationActivity {
 
     @Id
-    private int reservationId;  // Use primitive for primary key field
+    @ManyToOne
+    @JoinColumn(name = "reservation")
+    private Reservation reservation;
     @Id
     @ManyToOne
+    @JoinColumn(name = "activity")
     private Activity activity;
-    private String date;
     private int startTime; // military time e.g. 1300 for 1:00 PM
     private int reservedSlots; // Number of slots reserved for this activity
     @CreationTimestamp

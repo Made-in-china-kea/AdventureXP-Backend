@@ -56,7 +56,7 @@ public class ReservationService {
                 GuestDto newGuest = guestService.createGuest(request.getGuest());
                 System.out.println("newGuest: " + newGuest);
             }  else {
-                System.out.println("Guest have been here before. Welcome again " + request.getGuest().getEmail() );
+                System.out.println("Guest have been here before. Welcome again " + request.getGuest().getFirstName() + " " + request.getGuest().getLastName() );
                 }
 
         } else if (request.getCompany() != null) {
@@ -73,20 +73,12 @@ public class ReservationService {
         // Create new reservation record
         Reservation newReservation = new Reservation();
 
-        // create new reservation activity records with the new reservation id
-        for (ReservationActivity activity : request.getReservedActivities()) {
-            ReservationActivity newActivity = new ReservationActivity();
-            newActivity.setReservationId(newReservation.getId());
-            newActivity.setActivity(activity.getActivity());
-            // add the new reservation activity to the repository
-            ReservationActivity newA = reservationActivityService.addActivityReservation(new ReservationActivityDto(newActivity));
-
-            // add the new activity to the new reservation
-            newReservation.addActivity(newA);
-        }
-
         // Set reservation details
         updateReservation(newReservation, request);
+
+        // Save new reservation
+        reservationRepository.save(newReservation);
+
         return new ReservationDto(newReservation);
     }
 
@@ -111,21 +103,8 @@ public class ReservationService {
         Reservation editedReservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation not found"));
 
-        // update the reservation activity records
-        for (ReservationActivity activity : request.getReservedActivities()) {
-            // find the activity to edit in the repository
-            ReservationActivity activityToEdit = reservationActivityRepository.findById(activity.getReservationId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found"));
-            // update the activity
-            activityToEdit.setActivity(activity.getActivity());
-            // add the activity to the reservation
-            editedReservation.addActivity(activityToEdit);
-        }
-
         // Update reservation details (assuming relevant fields in request DTO)
         updateReservation(editedReservation, request);
-        // set the edited time
-        editedReservation.setEdited(LocalDateTime.now());
         // Save updated reservation
        reservationRepository.save(editedReservation);
 
@@ -133,14 +112,21 @@ public class ReservationService {
         return ResponseEntity.ok(new ReservationDto(editedReservation));
     }
 
-    private void updateReservation(Reservation reservation, ReservationDto request) {
-        // set guest or company
-        reservation.setGuest(new Guest(request.getGuest()));
-        reservation.setCompany(new Company(request.getCompany()));
+    private void updateReservation(Reservation reservation, ReservationDto request ) {
+        // set the guest or company to null if not provided
+        if (request.getGuest() != null) {
+            reservation.setGuest(new Guest(request.getGuest()));
+        } else {
+            reservation.setGuest(null);
+        }
+        if (request.getCompany() != null) {
+            reservation.setCompany(new Company(request.getCompany()));
+        } else {
+            reservation.setCompany(null);
+        }
+
         reservation.setReservationDate(request.getReservationDate());
-        reservation.setReservationTime(request.getReservationTime());
         reservation.setNumberOfParticipants(request.getNumberOfParticipants());
-        reservation.setCreated(request.getCreated());
         reservation.setCancelled(request.isCancelled());
         reservation.setReservedActivities(request.getReservedActivities());
     }
